@@ -1,31 +1,32 @@
 <template>
   <div>
     <TheHeader />
-    <BadgeList />
-    <UserInfo
-      :full-name="activeUser.name"
-      :info-text="activeUser.description"
-      :role="activeUser.role"
-    ></UserInfo>
-    <CourseGoals #default="slotProps">
-      <h2>{{ slotProps.item }}</h2>
-      <p>{{ slotProps['another-prop'] }}</p>
-    </CourseGoals>
+    <button @click="setSelectedComponent('active-goals')">Active Goals</button>
+    <button @click="setSelectedComponent('manage-goals')">Manage Goals</button>
+    <!-- <ActiveGoals v-if="selectedComponent === 'active-goals'"/>
+    <ManageGoals v-if="selectedComponent === 'manage-goals'" /> -->
+    <keep-alive>
+      <component :is="selectedComponent"></component>
+    </keep-alive>
   </div>
 </template>
 
 <script>
-import BadgeList from './components/BadgeList';
-import CourseGoals from './components/CourseGoals';
-import TheHeader from './components/TheHeader';
-import UserInfo from './components/UserInfo';
+import ActiveGoals from './components/ActiveGoals';
+// import BadgeList from './components/BadgeList';
+// import CourseGoals from './components/CourseGoals';
+import ManageGoals from './components/ManageGoals';
+import TheHeader from './components/layout/TheHeader';
+// import UserInfo from './components/UserInfo';
 
 export default {
   components: {
-    BadgeList,
-    CourseGoals,
+    ActiveGoals,
+    // BadgeList,
+    // CourseGoals,
+    ManageGoals,
     TheHeader,
-    UserInfo,
+    // UserInfo,
   },
   data() {
     return {
@@ -34,8 +35,14 @@ export default {
         description: 'Site owner and admin',
         role: 'admin',
       },
+      selectedComponent: 'active-goals',
     };
   },
+  methods: {
+    setSelectedComponent(cmp) {
+      this.selectedComponent = cmp;
+    }
+  }
 };
 </script>
 
