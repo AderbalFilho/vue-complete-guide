@@ -1,6 +1,16 @@
 <template>
   <div>
     <TheHeader />
+    <BadgeList />
+    <UserInfo
+      :full-name="activeUser.name"
+      :info-text="activeUser.description"
+      :role="activeUser.role"
+    ></UserInfo>
+    <CourseGoals #default="slotProps">
+      <h2>{{ slotProps.item }}</h2>
+      <p>{{ slotProps['another-prop'] }}</p>
+    </CourseGoals>
   </div>
 </template>
 
